@@ -4,6 +4,7 @@ let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
+// Select HTML elements if on the /notes page
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
@@ -25,6 +26,7 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
+// GET fetch for /api/notes endpoint
 const getNotes = () => 
   fetch('/api/notes', {
     method: 'GET',
@@ -33,6 +35,7 @@ const getNotes = () =>
     },
   });
 
+  // POST fetch for /api/notes endpoint
 const saveNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
@@ -42,6 +45,7 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
+// DELETE fetch for /api/notes endpoint
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -50,6 +54,7 @@ const deleteNote = (id) =>
     },
   });
 
+// Function to display the active note
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
@@ -66,6 +71,7 @@ const renderActiveNote = () => {
   }
 };
 
+// Function for saving notes
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
@@ -77,7 +83,7 @@ const handleNoteSave = () => {
   });
 };
 
-// Delete the clicked note
+// Delete the note whose garbage can icon was clicked
 const handleNoteDelete = (e) => {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   e.stopPropagation();
@@ -108,6 +114,7 @@ const handleNewNoteView = (e) => {
   renderActiveNote();
 };
 
+// Function that hides or shows the save button
 const handleRenderSaveBtn = () => {
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);

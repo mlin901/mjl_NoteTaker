@@ -10,17 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());                          
 app.use(express.static(__dirname + '/public'));  
 
-// // Routes
-// // Basic route that sends the user first to the AJAX Page
-// app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
-
-// ROUTER
-// The below points our server to a series of "route" files.
-// These routes give our server a "map" of how to respond when users visit or request data from various URLs.
+// ROUTER dependencies
 require('./routes/apiRoutes')(app); 
 require('./routes/htmlRoutes')(app);
 
-
 // Start server to begin listening
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
-
