@@ -42,7 +42,7 @@ node server.js
 
 ## Contributing
 
-In general, outside contributions are not being accepted since this is a UCD Coding Bootcamp assignment. 
+In general, outside contributions are not being accepted since this project is for educational purposes. 
 
 ## Questions
 Send questions to mjlinder218@gmail.com. 
