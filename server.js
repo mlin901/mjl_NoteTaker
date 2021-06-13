@@ -1,14 +1,14 @@
 const express = require('express');
-const path = require('path');   // ********?????
+const path = require('path');   
 
 // Sets up Express app
-const app = express();   // ********??????
+const app = express();   
 const PORT = process.env.PORT || 3003;
 
 // Sets up Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));   // *****????
-app.use(express.json());                          // *****????
-app.use(express.static(__dirname + '/public'));  //*******??? */
+app.use(express.urlencoded({ extended: true }));   
+app.use(express.json());                          
+app.use(express.static(__dirname + '/public'));  
 
 // // Routes
 // // Basic route that sends the user first to the AJAX Page

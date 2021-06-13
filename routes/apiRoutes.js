@@ -1,9 +1,12 @@
+const ShortUniqueId = require('short-unique-id');
+
 // LOAD DATA
 // We are linking our routes to a series of "data" sources.
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 const fs = require('fs')
 
 const noteData = require('../db/db.json');
+const { LOADIPHLPAPI } = require('dns');
 
 // ROUTING
 
@@ -30,14 +33,18 @@ module.exports = (app) => {
     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
     // It will do this by sending out the value "true" have a table
     // req.body is available since we're using the body parsing middleware
-      noteData.push(req.body);
-      res.json(true);
-      fs.writeFile("./db/db.json", JSON.stringify(noteData), err => {
-        if (err) {
-          console.error(err)
-          return
-        }
-      })
+    let uid = new ShortUniqueId();
+    let uidWithTimestamp = uid.stamp(32);
+    let noteObject = req.body;
+    noteObject.id = String(uidWithTimestamp);  
+    noteData.push(noteObject);
+    res.json(true);
+    fs.writeFile("./db/db.json", JSON.stringify(noteData), err => {
+      if (err) {
+        console.error(err)
+        return
+      }
+    })
   });
 
   app.delete('/api/notes/:id', (req, res) => {
@@ -45,13 +52,7 @@ module.exports = (app) => {
     // Get array from file - no, we already have that in noteData
 
     // Find index of array and use splice to remove the chosen item
-    // var elementPos = array.map(function(x) {return x.id; }).indexOf(idYourAreLookingFor);
-    console.log(passedId + '    passedId0000000000...');
-    console.log(noteData);
     var elementPos = noteData.map(function(x) {return x.id; }).indexOf(passedId);
-    console.log(passedId + '    passedId11111111');
-    console.log(elementPos + '   elementPos2222222...');
-    console.log(noteData);
     noteData.splice(elementPos, 1);
     
     // Write new array to file?
@@ -61,7 +62,6 @@ module.exports = (app) => {
         return
       }
     })
-    // Return new array? - Don't think so. Maybe just res.json(true);
 
     res.json(true);
 

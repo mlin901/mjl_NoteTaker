@@ -70,7 +70,6 @@ const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
-    id: String(Date.now()), 
   };
   saveNote(newNote).then(() => {
     getAndRenderNotes();
